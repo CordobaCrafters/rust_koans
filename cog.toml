@@ -1,0 +1,30 @@
+# A list of glob patterns describing branches on which semver bump are allowed
+branch_whitelist = ["main"]
+
+# Ignore merge commits from conventional commit checks
+ignore_merge_commits = true
+
+[changelog]
+path = "CHANGELOG.md"
+authors = [
+    { signature = "Sergio Gomez", username = "sgomez" }
+]
+
+# Shareable git-hooks, can be installed using `cog install-hook --all`
+# or alternatively `cog install-hooks {commit_hook_type}
+[git_hooks.commit-msg]
+script = """#!/bin/sh
+set -e
+
+echo "[Check current commit message]"
+cog verify --file $1
+
+echo "[Conventional commit check]"
+cog check
+
+echo "[Format code]"
+cargo fmt -v --all --check
+
+echo "[Lints]"
+cargo clippy
+"""
