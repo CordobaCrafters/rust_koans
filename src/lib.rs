@@ -1,4 +1,5 @@
 pub mod about_asserts;
+pub mod about_true_and_false;
 pub mod about_type_str;
 
 pub fn add(left: usize, right: usize) -> usize {
