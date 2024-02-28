@@ -1,5 +1,5 @@
 #[cfg(test)]
-mod test {
+mod tests {
     /// We shall contemplate truth by testing reality, via asserts
     #[test]
     fn test_assert_truth() {

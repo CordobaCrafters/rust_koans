@@ -11,6 +11,8 @@ use regex::Regex;
 struct Args {
     #[arg(short, long, default_value_t = false)]
     verbose: bool,
+    #[arg(short, long, default_value_t = false)]
+    ignore_errors: bool,
 }
 
 fn get_koans() -> io::Result<Vec<String>> {
@@ -33,7 +35,7 @@ fn get_tests_for_koan(koan: String) -> Result<Vec<String>, Box<dyn std::error::E
     let tests = re
         .captures_iter(&content)
         .filter_map(|cap| cap.get(1))
-        .map(|m| format!("{}::test::{}", koan, m.as_str()))
+        .map(|m| format!("{}::tests::{}", koan, m.as_str()))
         .collect::<Vec<String>>();
 
     Ok(tests)
@@ -49,8 +51,9 @@ fn main() -> io::Result<()> {
         .collect::<Vec<String>>();
 
     let all_tests_count = all_tests.len();
+    let mut tests_passed_count = 0;
 
-    for (tests_passed, test_name) in all_tests.iter().enumerate() {
+    for test_name in all_tests.iter() {
         let output = Command::new("cargo")
             .args(["test", &test_name.as_str()])
             .output()?;
@@ -62,14 +65,25 @@ fn main() -> io::Result<()> {
                 eprintln!("{}", String::from_utf8_lossy(&output.stdout));
             }
 
-            println!("Passed {} tests of {}.", tests_passed, all_tests_count);
+            if args.ignore_errors {
+                continue;
+            }
+
+            println!(
+                "Passed {} tests of {}.",
+                tests_passed_count, all_tests_count
+            );
             std::process::exit(1);
         }
 
         println!("{}", "success.".green());
+        tests_passed_count += 1;
     }
 
-    println!("Passed {} tests of {}.", all_tests_count, all_tests_count);
+    println!(
+        "Passed {} tests of {}.",
+        tests_passed_count, all_tests_count
+    );
     println!("All tests passed!");
     Ok(())
 }
