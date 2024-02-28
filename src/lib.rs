@@ -1,4 +1,5 @@
 mod about_asserts;
+mod about_option;
 mod about_true_and_false;
 mod about_type_str;
 
