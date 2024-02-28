@@ -1,14 +1,12 @@
-pub fn truth_value(condition: bool) -> &'static str {
-    if condition {
-        "true stuff"
-    } else {
-        "false stuff"
-    }
-}
-
 #[cfg(test)]
 mod tests {
-    use super::*;
+    fn truth_value(condition: bool) -> &'static str {
+        if condition {
+            "true stuff"
+        } else {
+            "false stuff"
+        }
+    }
 
     #[test]
     fn test_true_is_treated_as_true() {

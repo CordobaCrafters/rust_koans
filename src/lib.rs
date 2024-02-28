@@ -1,6 +1,6 @@
-pub mod about_asserts;
-pub mod about_true_and_false;
-pub mod about_type_str;
+mod about_asserts;
+mod about_true_and_false;
+mod about_type_str;
 
 use std::any::type_name;
 
