@@ -1,6 +1,7 @@
 mod about_asserts;
 mod about_cfg;
 mod about_option;
+mod about_result;
 mod about_true_and_false;
 mod about_tuples;
 mod about_type_str;
