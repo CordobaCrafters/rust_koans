@@ -84,6 +84,9 @@ fn main() -> io::Result<()> {
         "Passed {} tests of {}.",
         tests_passed_count, all_tests_count
     );
-    println!("All tests passed!");
+
+    if tests_passed_count == all_tests_count {
+        println!("All tests passed!");
+    }
     Ok(())
 }
