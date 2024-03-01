@@ -42,65 +42,68 @@ mod tests {
     fn test_option_can_use_pattern_matching() {
         let option: Option<i32> = Some(5);
 
-        let result = match option {
+        let value = match option {
             Some(number) => number,
             None => 0,
         };
 
-        assert_eq!(0, result);
+        assert_eq!(0, value);
     }
 
     #[test]
-    fn test_all_options_must_be_used_to_compile() {
+    fn test_all_variantes_must_be_used_to_compile() {
+        let mut _enabled = false;
         #[cfg(remove_this_line)]
         {
             let option: Option<i32> = None;
 
-            let result = match option {
+            let value: i32 = match option {
                 None => 0,
             };
 
-            assert_eq!(0, result);
+            assert_eq!(0, value);
+
+            _enabled = true;
         }
-        assert!(false, "Enable this test.")
+        assert!(_enabled, "This test intentionally fails.");
     }
 
     #[test]
-    fn test_if_let_ignores_none_option() {
+    fn test_if_let_ignores_none_option_alternative() {
         let option: Option<i32> = Some(5);
-        let mut result = 0;
+        let mut value = 0;
 
         if let Some(number) = option {
-            result = number;
+            value = number;
         }
-        assert_eq!(0, result);
+        assert_eq!(0, value);
     }
 
     #[test]
     fn test_some_option_can_be_concatenated() {
         let option: Option<i32> = Some(5);
-        let result = option.and_then(|x| Some(x * 2));
-        assert_eq!(Some(5), result);
+        let value = option.and_then(|x| Some(x * 2));
+        assert_eq!(Some(5), value);
     }
 
     #[test]
     fn test_none_option_cannot_be_concatenated() {
         let option: Option<i32> = None;
-        let result = option.and_then(|x| Some(x * 2));
-        assert_eq!(Some(5), result);
+        let value = option.and_then(|x| Some(x * 2));
+        assert_eq!(Some(5), value);
     }
 
     #[test]
     fn test_some_option_can_be_mapped() {
         let option: Option<i32> = Some(5);
-        let result = option.map(|x| x * 2);
-        assert_eq!(Some(5), result);
+        let value = option.map(|x| x * 2);
+        assert_eq!(Some(5), value);
     }
 
     #[test]
     fn test_none_option_cannot_be_mapped() {
         let option: Option<i32> = None;
-        let result = option.map(|x| x * 2);
-        assert_eq!(Some(5), result);
+        let value = option.map(|x| x * 2);
+        assert_eq!(Some(5), value);
     }
 }
