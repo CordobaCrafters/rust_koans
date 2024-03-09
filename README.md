@@ -23,4 +23,4 @@ cog install-hook commit-msg
 
 * [Ruby Koans](https://github.com/edgecase/ruby_koans)
 * [Python Koans](https://github.com/gregmalcolm/python_koans)
-  
+* [Rust by Example](https://doc.rust-lang.org/stable/rust-by-example/)

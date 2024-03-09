@@ -1,6 +1,7 @@
 mod about_asserts;
 mod about_cfg;
 mod about_control_statements;
+mod about_control_statements_match;
 mod about_option;
 mod about_result;
 mod about_true_and_false;
